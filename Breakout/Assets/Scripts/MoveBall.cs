@@ -10,7 +10,7 @@ public class MoveBall : MonoBehaviour
      public bool hitPaddle = false;
      public BreakBrick BreakBrickScript;
 
-     public TextMeshProUGUI comboText; // Reference to the TextMeshPro text
+     public TextMeshProUGUI comboNum; // Reference to the TextMeshPro text
 
      public AudioClip bounceSound; // Bounce sound
      private AudioSource audioSource;
@@ -21,6 +21,12 @@ public class MoveBall : MonoBehaviour
      {
           audioSource = GetComponent<AudioSource>();
           rb = GetComponent<Rigidbody2D>();
+
+          // Dynamically find the comboNum object in the scene
+          if (comboNum == null)
+          {
+               comboNum = GameObject.Find("ComboNum").GetComponent<TextMeshProUGUI>();
+          }
 
           // Launch the ball in downwards direction
           rb.velocity = Vector2.down * 5;
@@ -36,7 +42,7 @@ public class MoveBall : MonoBehaviour
                // This is for extra points if the ball hits multiple bricks before hitting the paddle
                hitPaddle = true;
                BreakBrickScript.bricksHit = 0;
-               comboText.text = "0";
+               comboNum.text = "0";
                StartCoroutine(MakeHitPaddleFalse());
 
                // Spawn and play particle effect at the collision point

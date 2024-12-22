@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class BallsPowerup : MonoBehaviour
+public class ComboIncreasePowerup : MonoBehaviour
 {
      public BreakBrick breakBrick;
      private Rigidbody2D rb;
@@ -27,7 +27,7 @@ public class BallsPowerup : MonoBehaviour
 
      void OnTriggerEnter2D(Collider2D other)
      {
-          if (other.CompareTag("BallsPowerup"))
+          if (other.CompareTag("ComboPowerup"))
           {
                PlaySound();
 
@@ -39,6 +39,9 @@ public class BallsPowerup : MonoBehaviour
                     Destroy(particles.gameObject, particles.main.duration + particles.main.startLifetime.constantMax);
                }
 
+               breakBrick.scorePerBrick += 10;
+               comboText.text = breakBrick.scorePerBrick.ToString();
+
                Destroy(other.gameObject);
           }
      }
@@ -48,6 +51,5 @@ public class BallsPowerup : MonoBehaviour
           // Play the comboPowerup sound
           if (audioSource && powerSound)
                audioSource.PlayOneShot(powerSound);
-               
      }
 }

@@ -10,14 +10,30 @@ public class BreakBrick : MonoBehaviour
      private AudioSource audioSource;
      
      public int scoreValue;        // Keeping score
+     public TextMeshProUGUI scoreNum; // Reference to the TextMeshPro text
      public MoveBall MoveBallScript;    // Using this to give players extra points if they hit multiple bricks before hitting the paddle
      public int bricksHit = 0;     // Keeping track of how many bricks the player has hit
-     public TextMeshProUGUI comboText; // Reference to the TextMeshPro text
+     public TextMeshProUGUI comboNum; // Reference to the TextMeshPro text
+
+     public int scorePerBrick = 10;
+     public GameObject comboPowerup;
 
      void Start()
      {
           audioSource = GetComponent<AudioSource>();
           breakEffects = Camera.main.GetComponent<BreakEffects>();
+
+          // Dynamically find the comboNum object in the scene
+          if (comboNum == null)
+          {
+               comboNum = GameObject.Find("ComboNum").GetComponent<TextMeshProUGUI>();
+          }
+
+          // Dynamically find the scoreNum object in the scene
+          if (scoreNum == null)
+          {
+               scoreNum = GameObject.Find("ScoreNum").GetComponent<TextMeshProUGUI>();
+          }
      }
 
      private void OnCollisionEnter2D(Collision2D collision)
@@ -25,16 +41,23 @@ public class BreakBrick : MonoBehaviour
           if (collision.gameObject.CompareTag("Brick"))
           {
                bricksHit++;
-               comboText.text = bricksHit.ToString();
+               comboNum.text = bricksHit.ToString();
 
                PlaySound();
 
                // Increase the score
                if (!MoveBallScript.hitPaddle)
                {
-                    scoreValue += 10 * bricksHit;
+                    scoreValue += scorePerBrick * bricksHit;
+                    scoreNum.text = scoreValue.ToString();
                }
-               
+
+               // Have a 25% chance of spawning a comboPowerup
+               if (Random.value < 0.15f)
+               {
+                    Instantiate(comboPowerup, collision.transform.position, Quaternion.identity);
+               }
+
                // Trigger camera shake
                if (breakEffects)
                     breakEffects.TriggerShake();
@@ -57,10 +80,5 @@ public class BreakBrick : MonoBehaviour
           // Play the brick break sound
           if (audioSource && breakSound)
                audioSource.PlayOneShot(breakSound);
-     }
-
-     public int GetScoreValue()
-     {
-          return scoreValue;
      }
 }
