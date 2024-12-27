@@ -1,55 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using TMPro;
+//using UnityEngine;
 
-public class ComboIncreasePowerup : MonoBehaviour
-{
-     public BreakBrick breakBrick;
-     private Rigidbody2D rb;
+//public class ComboIncreasePowerup : MonoBehaviour
+//{
+//     public BreakBrick breakBrick;
+//     private Rigidbody2D rb;
 
-     public AudioClip powerSound; // Sound for breaking bricks
-     private AudioSource audioSource;
+//     public AudioClip powerSound; // Sound for breaking bricks
+//     private AudioSource audioSource;
 
-     public ParticleSystem particleEffect; // Particle effect prefab
-     public TextMeshProUGUI comboText;
+//     public ParticleSystem particleEffect; // Particle effect prefab
+//     public TextMeshProUGUI comboText;
 
-     void Start()
-     {
-          audioSource = GetComponent<AudioSource>();
+//     void Start()
+//     {
+//          audioSource = GetComponent<AudioSource>();
 
-          // Dynamically find the comboText object in the scene
-          if (comboText == null)
-          {
-               comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
-          }
-     }
+//          // Dynamically find the comboText object in the scene
+//          if (comboText == null)
+//          {
+//               comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
+//          }
 
-     void OnTriggerEnter2D(Collider2D other)
-     {
-          if (other.CompareTag("ComboPowerup"))
-          {
-               PlaySound();
+//          // Set the scorePerBrick to 10
+//          breakBrick.scorePerBrick = 10;
+//     }
 
-               // Spawn and play particle effect
-               if (particleEffect)
-               {
-                    ParticleSystem particles = Instantiate(particleEffect, other.transform.position, Quaternion.identity);
-                    particles.Play();
-                    Destroy(particles.gameObject, particles.main.duration + particles.main.startLifetime.constantMax);
-               }
+//     void OnTriggerEnter2D(Collider2D other)
+//     {
+//          if (other.CompareTag("ComboPowerup"))
+//          {
+//               PlaySound();
 
-               breakBrick.scorePerBrick += 10;
-               comboText.text = breakBrick.scorePerBrick.ToString();
+//               // Spawn and play particle effect
+//               if (particleEffect)
+//               {
+//                    ParticleSystem particles = Instantiate(particleEffect, other.transform.position, Quaternion.identity);
+//                    particles.Play();
+//                    Destroy(particles.gameObject, particles.main.duration + particles.main.startLifetime.constantMax);
+//               }
 
-               Destroy(other.gameObject);
-          }
-     }
+//               breakBrick.scorePerBrick += 10;
+//               comboText.text = breakBrick.scorePerBrick.ToString();
 
-     private void PlaySound()
-     {
-          // Play the comboPowerup sound
-          if (audioSource && powerSound)
-               audioSource.PlayOneShot(powerSound);
-     }
-}
+//               Destroy(other.gameObject);
+//          }
+//     }
+
+//     private void PlaySound()
+//     {
+//          // Play the comboPowerup sound
+//          if (audioSource && powerSound)
+//               audioSource.PlayOneShot(powerSound);
+//     }
+//}

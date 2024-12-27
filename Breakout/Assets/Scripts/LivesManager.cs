@@ -6,7 +6,7 @@ public class LivesManager : MonoBehaviour
 {
      public RawImage lifePrefab;  // Prefab for the life icon
      public Transform livesParent; // Parent Transform to hold life icons (e.g., a UI panel)
-     private Stack<RawImage> livesStack = new Stack<RawImage>();
+     public Stack<RawImage> livesStack = new Stack<RawImage>();
 
      public int initialLives = 3;
 

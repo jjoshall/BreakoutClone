@@ -330,6 +330,7 @@ MonoBehaviour:
   particleEffect: {fileID: 982912217599786235, guid: 8198e644fe668244c8e336301f2507f9, type: 3}
   breakSound: {fileID: 8300000, guid: 60525d68f0c2e434a8b5bc02491ab941, type: 3}
   scoreValue: 0
+  scoreNum: {fileID: 0}
   MoveBallScript: {fileID: 4018824502125364643}
   bricksHit: 0
   comboNum: {fileID: 0}

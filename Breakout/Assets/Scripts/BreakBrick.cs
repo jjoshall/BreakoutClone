@@ -15,6 +15,8 @@ public class BreakBrick : MonoBehaviour
      public int bricksHit = 0;     // Keeping track of how many bricks the player has hit
      public TextMeshProUGUI comboNum; // Reference to the TextMeshPro text
 
+     public int bricksToWin = 42;   // Number of bricks to break to win
+
      public int scorePerBrick = 10;
      public GameObject comboPowerup;
 
@@ -41,6 +43,8 @@ public class BreakBrick : MonoBehaviour
           if (collision.gameObject.CompareTag("Brick"))
           {
                bricksHit++;
+               bricksToWin--;
+
                comboNum.text = bricksHit.ToString();
 
                PlaySound();
@@ -53,10 +57,10 @@ public class BreakBrick : MonoBehaviour
                }
 
                // Have a 25% chance of spawning a comboPowerup
-               if (Random.value < 0.15f)
-               {
-                    Instantiate(comboPowerup, collision.transform.position, Quaternion.identity);
-               }
+               //if (Random.value < 0.15f)
+               //{
+               //     Instantiate(comboPowerup, collision.transform.position, Quaternion.identity);
+               //}
 
                // Trigger camera shake
                if (breakEffects)

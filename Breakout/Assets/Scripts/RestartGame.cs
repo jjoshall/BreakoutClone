@@ -5,13 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class RestartGame : MonoBehaviour
 {
-     // If user presses R, restart the game
-     void Update()
+     private void Update()
      {
           if (Input.GetKeyDown(KeyCode.R))
           {
-               // Reload the currently active scene
-               SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+               Restart();
           }
+     }
+
+     public void Restart()
+     {
+          SceneManager.LoadScene("SampleScene");
+          Time.timeScale = 1f;
      }
 }
